@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Image Search Abstraction Layer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+      code {
+        font-size: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Search Abstraction Layer</h1>
+      <h2>Example usage:</h2>
+      <code>https://cmd-image-search.herokuapp.com/lolcats%20funny?offset=10</code>
+      <h3>OR</h3>
+      <code>https://cmd-image-search.herokuapp.com/recentQueries</code>
+      <h2>Example output:</h2>
+      <code>[{"url": "((image URL))", "snippet": "((desc))", "thumbnail": "((thumbnail URL))", "context": "((image origin))"}, ... ]</code>
+      <h3>OR</h3>
+      <code>[{"term": "((search term))", "when": "((timestamp))"}, ... ]</code>
+    </div>
+  </body>
+</html>

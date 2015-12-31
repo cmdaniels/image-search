@@ -1,0 +1,25 @@
+{
+  "name": "image-search",
+  "version": "1.0.0",
+  "description": "A simple API service to search Flickr for images",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmdaniels/image-search.git"
+  },
+  "author": "cmdaniels",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cmdaniels/image-search/issues"
+  },
+  "homepage": "https://github.com/cmdaniels/image-search#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "serve-favicon": "^2.3.0"
+  }
+}

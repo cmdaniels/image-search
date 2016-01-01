@@ -2,6 +2,7 @@
 var express = require('express');
 var favicon = require('serve-favicon');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var path = require('path');
 var Flickr = require('flickrapi');
 require('dotenv').load();
@@ -15,9 +16,24 @@ var flickrOptions = {
 // Initialize express app
 var app = express();
 var port = process.env.PORT || 8080;
+var uri = process.env.MONGOLAB_URI ||
+          process.env.MONGOHQ_URL ||
+          process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME ||
+          'mongodb://localhost/image-search';
 
-// Local data store for recentQueries
-var database = [];
+// Connect to mongoose
+mongoose.connect(uri);
+console.log('Connected to MongoDB');
+mongoose.connection.on('error', function(err) {
+  console.error('MongoDB connection error: ' + err);
+  process.exit(-1);
+});
+
+// Create model
+var Query = mongoose.model('Query', {
+  term: String,
+  when: Date
+});
 
 // Config body-parser
 app.use(bodyParser.json());
@@ -33,7 +49,19 @@ app.get('/', function(req, res) {
 
 // Route recentQueries
 app.get('/recentQueries', function(req, res) {
-  res.send(database);
+  Query.find({}, function(err, docs) {
+    if (err) {
+      console.error(error);
+      process.end(-1);
+    }
+    var queryArr = [];
+    docs.forEach(function(doc) {
+      doc._id = undefined;
+      doc.__v = undefined;
+      queryArr.push(doc);
+    });
+    res.send(queryArr.slice(0,9));
+  });
 });
 
 // Route image search
@@ -67,11 +95,16 @@ app.get('/:search', function(req, res) {
         };
         resArray.push(photoObj);
       });
-      database.push({
+      Query.create({
         term: req.params.search,
         when: new Date()
+      }, function(err) {
+        if (err) {
+          console.error(err);
+          process.exit(-1);
+        }
+        res.send(resArray);
       });
-      res.send(resArray);
     });
   });
 });

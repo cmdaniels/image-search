@@ -19,7 +19,9 @@
   "homepage": "https://github.com/cmdaniels/image-search#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "dotenv": "^1.2.0",
     "express": "^4.13.3",
+    "flickrapi": "^0.3.36",
     "serve-favicon": "^2.3.0"
   }
 }

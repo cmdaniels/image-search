@@ -42,6 +42,7 @@ app.get('/:search', function(req, res) {
   Flickr.tokenOnly(flickrOptions, function(error, flickr) {
     if (error) {
       console.error(error);
+      res.send(error);
       process.end(-1);
     }
     flickr.photos.search({
@@ -52,6 +53,7 @@ app.get('/:search', function(req, res) {
     }, function(err, result) {
       if (error) {
         console.error(error);
+        res.send(error);
         process.end(-1);
       }
       var photoObj;

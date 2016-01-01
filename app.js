@@ -10,7 +10,7 @@ require('dotenv').load();
 // Flickr API settings
 var flickrOptions = {
   api_key: process.env.FLICKR_API_KEY,
-  secret: process.env.FLICKR_API_KEY
+  secret: process.env.FLICKR_API_SECRET
 };
 
 // Initialize express app
